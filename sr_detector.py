@@ -4,7 +4,7 @@ from azureml.studio.core.logger import module_logger as logger
 
 
 def sr_detect(frame, detect_mode, batch_size, threshold, sensitivity):
-    model = SpectralResidual(frame, threshold=threshold*10, mag_window=3, score_window=21,
+    model = SpectralResidual(frame, threshold=threshold, mag_window=3, score_window=21,
                              sensitivity=sensitivity, detect_mode=DetectMode(detect_mode),  batch_size=batch_size)
     result = model.detect()
 
