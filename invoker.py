@@ -37,7 +37,8 @@ def is_timestamp_ascending(timestamps):
 
 
 @error_handler
-def invoke(input_path, detect_mode, timestamp_column, value_column, batch_size, threshold, sensitivity, appendMode, output_path):
+def invoke(input_path, detect_mode, timestamp_column, value_column, batch_size, threshold, sensitivity,
+            appendMode, compute_stats_in_visualization, output_path):
     data_frame_directory = load_data_frame_from_directory(input_path)
 
     logger.debug(f"Shape of loaded DataFrame: {data_frame_directory.data.shape}")
@@ -88,7 +89,7 @@ def invoke(input_path, detect_mode, timestamp_column, value_column, batch_size, 
     if appendMode is True:
         result = pd.merge(data_frame_directory.data, result, left_index=True, right_index=True)
 
-    save_data_frame_to_directory(output_path, result)
+    save_data_frame_to_directory(output_path, result, compute_stats_in_visualization=compute_stats_in_visualization)
 
 
 if __name__ == '__main__':
@@ -136,6 +137,11 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
+        '--compute-stats-in-visualization', type=str2bool, default=False,
+        help='Enable this parameter to get stats visualization.'
+    )
+
+    parser.add_argument(
         '--output-path',
         help='Output Dataframe path'
     )
@@ -153,7 +159,9 @@ if __name__ == '__main__':
     logger.debug(f"threshold: {args.threshold}")
     logger.debug(f"sensitivity: {args.sensitivity}")
     logger.debug(f"appendMode: {args.append_mode}")
+    logger.debug(f"appendMode: {args.compute_stats_in_visualization}")
     logger.debug(f"output path: {args.output_path}")
 
     invoke(args.input_path, args.detect_mode, args.timestamp_column, args.value_column,
-        args.batch_size, args.threshold, args.sensitivity, args.append_mode, args.output_path)
+        args.batch_size, args.threshold, args.sensitivity, args.append_mode,
+        args.compute_stats_in_visualization, args.output_path)

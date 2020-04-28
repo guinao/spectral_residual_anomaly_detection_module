@@ -20,6 +20,7 @@ class TestErrorInput(unittest.TestCase):
         self.__threshold = 0.3
         self.__sensitivity = 99
         self.__append_mode = True
+        self.compute_stats_in_visualization = True,
         self.__output_path = './functional_test_output_data_frame_directory'
 
     def tearDown(self):
@@ -38,7 +39,8 @@ class TestErrorInput(unittest.TestCase):
         df['value'] = np.sin(np.linspace(1, 20, 200))
         save_data_frame_to_directory(self.__input_path, df)
         invoker.invoke(self.__input_path, self.__detect_mode, self.__timestamp_column, self.__value_column,
-                        self.__batch_size, self.__threshold, self.__sensitivity, self.__append_mode, self.__output_path)
+                        self.__batch_size, self.__threshold, self.__sensitivity, self.__append_mode,
+                        self.compute_stats_in_visualization, self.__output_path)
         result = load_data_frame_from_directory(self.__output_path).data
         self.assertEqual(result.shape[0], 200)
         self.assertTrue('value' in result.columns)
@@ -54,7 +56,8 @@ class TestErrorInput(unittest.TestCase):
         df['value'] = np.sin(np.linspace(1, 20, 200))
         save_data_frame_to_directory(self.__input_path, df)
         invoker.invoke(self.__input_path, "AnomalyAndMargin", self.__timestamp_column, self.__value_column,
-                        self.__batch_size, self.__threshold, self.__sensitivity, self.__append_mode, self.__output_path)
+                        self.__batch_size, self.__threshold, self.__sensitivity, self.__append_mode,
+                        self.compute_stats_in_visualization, self.__output_path)
         result = load_data_frame_from_directory(self.__output_path).data
         self.assertEqual(result.shape[0], 200)
         self.assertTrue('value' in result.columns)
@@ -70,7 +73,8 @@ class TestErrorInput(unittest.TestCase):
         df['value'] = np.sin(np.linspace(1, 20, 200))
         save_data_frame_to_directory(self.__input_path, df)
         invoker.invoke(self.__input_path, "AnomalyAndMargin", self.__timestamp_column, self.__value_column,
-                        66, self.__threshold, self.__sensitivity, self.__append_mode, self.__output_path)
+                        66, self.__threshold, self.__sensitivity, self.__append_mode,
+                        self.compute_stats_in_visualization, self.__output_path)
         result = load_data_frame_from_directory(self.__output_path).data
 
         self.assertEqual(result.shape[0], 200)
