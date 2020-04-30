@@ -1,6 +1,6 @@
 moduleIdentifier:
   moduleName: Spectral Residual Anomaly Detection
-  moduleVersion: 0.0.5
+  moduleVersion: 0.0.6
   namespace: microsoft.com/office
 metadata:
   annotations:
