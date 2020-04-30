@@ -11,4 +11,4 @@ dependencies:
     - azureml-defaults
     - azureml-designer-core==0.0.31
     - azureml-designer-internal==0.0.20
-    - git+https://github.com/guinao/anomalydetector.git
+    - git+https://github.com/microsoft/anomalydetector.git
